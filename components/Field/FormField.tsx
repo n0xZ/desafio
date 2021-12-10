@@ -19,7 +19,7 @@ const FormField: React.FC<IFormField> = ({
         <main className="flex flex-col mb-4 w-full  ">
             <label className="font-roboto">{labelName}</label>
             <input
-                className="h-11 w-full rounded-md outline-none border-2 border-gray-300 shadow-sm"
+                className="h-11 w-full px-3  rounded-md outline-none border-2 border-gray-300 shadow-md"
                 type={inputType}
                 {...register(inputName)}
             />

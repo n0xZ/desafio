@@ -21,7 +21,7 @@ const FormOptionField: React.FC<IFormOptionField> = ({
         <main className="flex flex-col mb-4 w-full  ">
             <label className="font-roboto">{labelName}</label>
             <select
-                className="h-11 w-full rounded-md outline-none border-2 border-gray-300 shadow-sm"
+                className="px-3 h-11 w-full rounded-md outline-none border-2 border-gray-300 shadow-md"
                 {...register(inputName)}
             >
                 {options.map((option, index) => (
