@@ -21,7 +21,7 @@ class MyDocument extends Document {
                         rel="stylesheet"
                     />
                 </Head>
-                <body className="bg-gray-200 min-hscreen text-black font-ubuntu">
+                <body className="bg-gray-200 min-h-screen text-black font-ubuntu">
                     <Main />
                     <NextScript />
                 </body>
