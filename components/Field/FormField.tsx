@@ -16,10 +16,14 @@ const FormField: React.FC<IFormField> = ({
     errors,
 }) => {
     return (
-        <main>
-            <label>{labelName}</label>
-            <input type={inputType} {...register(inputName)} />
-            <p>{errors?.message && errors.message}</p>
+        <main className="flex flex-col mb-4 w-full  ">
+            <label className="font-roboto">{labelName}</label>
+            <input
+                className="h-11 w-full rounded-md outline-none border-2 border-gray-300 shadow-sm"
+                type={inputType}
+                {...register(inputName)}
+            />
+            <p className="text-red-600 ">{errors?.message && errors.message}</p>
         </main>
     );
 };
