@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Project } from 'types';
-const Home = () => {
+const HomeView = () => {
     const [projects, setProjects] = useState<Project[]>([]);
     return (
         <div className="container mx-auto">
@@ -31,4 +31,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomeView;
