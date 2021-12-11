@@ -2,49 +2,52 @@ import React from 'react';
 import Link from 'next/link';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import toast from 'react-hot-toast';
 import FormField from '../Field/FormField';
 import FormOptionField from '../Field/FormOptionField';
 import persons from 'projectManager.json';
 import assigned from 'assignedTo.json';
 import status from 'status.json';
-import project from 'project.json';
 import { ProjectSchema } from 'utils/yup';
-import { Project } from 'types';
+import { ProjectForm } from 'types';
+
 interface IProjectForm {
     isEditAvailable: boolean;
-    projectName: string | undefined;
+    projectId: string | undefined;
 }
 const ProjectForm: React.FC<IProjectForm> = ({
     isEditAvailable,
-    projectName,
+    projectId,
 }) => {
-    const actualName = projectName;
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Project>({ resolver: yupResolver(ProjectSchema) });
-    const onSubmit = handleSubmit((values) => {
+    } = useForm<ProjectForm>({ resolver: yupResolver(ProjectSchema) });
+    const onSubmit = handleSubmit(async (values) => {
         if (isEditAvailable) {
-            project.map((project: any) => {
-                if (project.name === actualName) {
-                    project = values;
-                    toast.success('Project edited successfully!');
+            const response = await fetch(
+                `https://challengeestoes.vercel.app/api/projects/${projectId}`,
+                {
+                    method: 'PUT',
+                    body: JSON.stringify(values),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
                 }
-            });
+            ).then((res) => res.json());
+            toast.success(response.message);
         } else {
-            const newProject = {
-                id: project.length + 1,
-                name: values.name,
-                description: values.description,
-                assignedTo: values.assignedTo,
-                projectManager: values.projectManager,
-                status: values.status,
-            };
-            project.push(newProject);
-            toast.success('Project created successfully!');
+            const response = await fetch('https://challengeestoes.vercel.app/api/projects', {
+                method: 'POST',
+                body: JSON.stringify(values),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }).then((res) => res.json());
+
+            toast.success(response.message);
         }
     });
     return (

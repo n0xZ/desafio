@@ -2,21 +2,16 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import sweetalert from 'sweetalert2';
 import { GoKebabVertical } from 'react-icons/go';
+import { Project } from 'types';
 interface IProjectsList {
-    projects: any[];
+    projects: Project[];
 }
-type Project = {
-    id?: number;
-    description: string;
-    projectManager: string;
-    assignedTo: string;
-    status: string;
-};
+
 const ProjectsList = ({ projects }: IProjectsList) => {
     const [toggleMenu, settoggleMenu] = useState(false);
     const [Projects, setProjects] = useState(projects);
     const [SelectedProject, setSelectedProject] = useState('');
-    const DeleteProject = (name: string) => {
+    const DeleteProject = (id: string) => {
         sweetalert
             .fire({
                 title: 'Desea borrar el projecto?',
@@ -24,12 +19,23 @@ const ProjectsList = ({ projects }: IProjectsList) => {
                 showConfirmButton: true,
                 confirmButtonText: 'Si',
             })
-            .then((result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
-                    setProjects(
-                        Projects.filter((project) => project.name !== name)
+                    const deleteResponse = await fetch(
+                        `https://challengeestoes.vercel.app/api/projects/${id}`,
+                        {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-type':
+                                    'application/json; charset=UTF-8',
+                            },
+                        }
+                    ).then((res) => res.json());
+                    const projectsFiltered = Projects.filter(
+                        (project) => project.id !== id
                     );
-                    sweetalert.fire('Borrado con éxito');
+                    setProjects(projectsFiltered);
+                    sweetalert.fire(deleteResponse.message);
                 }
             });
     };
@@ -39,7 +45,7 @@ const ProjectsList = ({ projects }: IProjectsList) => {
     };
     return (
         <>
-            {Projects.map((project: any) => (
+            {Projects.map((project) => (
                 <div
                     key={project.id}
                     className="flex flex-row justify-between items-center  h-2/6 w-full p-3 bg-white border-gray-400 border-b-2  "
@@ -49,26 +55,29 @@ const ProjectsList = ({ projects }: IProjectsList) => {
                             {project.name}
                         </h3>
                         <p className="text-gray-500 text-xs font-roboto mx-1 mb-2">
-                            Created at {Date.now().toString()}
+                            Created at {project.createdAt}
                         </p>
                         <h2 className="font-roboto font-bold mx-6 h-full">
                             {project.projectManager}
                         </h2>
                     </aside>
-                    <div className="flex flex-row mx-3 justify-between items-center">
+                    <div className="flex flex-row mx-3 justify-end h-full w-full items-center">
                         <div
                             key={project.projectManager}
                             className={
                                 toggleMenu && SelectedProject === project.name
-                                    ? 'h-24 w-full bg-gray-100'
-                                    : '  h-1/2 w-1/2 hidden bg-gray-100 transition ease-in'
+                                    ? ' h-full xl:w-3/12 mx-4 w-2/4 rounded-sm flex flex-col justify-start items-center  bg-gray-50'
+                                    : ' hidden '
                             }
                         >
-                            <button onClick={() => DeleteProject(project.name)}>
+                            <button
+                                onClick={() => DeleteProject(project.id)}
+                                className="text-left  border-b-2 border-gray-200 w-full"
+                            >
                                 Eliminar
                             </button>
-                            <Link href={`/edit/${project.name}`}>
-                                <a>Editar </a>
+                            <Link href={`/edit/${project.id}`}>
+                                <a className="text-left">Editar </a>
                             </Link>
                         </div>
                         <GoKebabVertical
