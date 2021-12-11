@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["dataProxy"]
+}
+
+datasource db {
+  
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl   =env("DATABASE_MIGRATE_URL")
+}
+
+model Project{
+  id String @id @default(uuid())
+  createdAt   DateTime @default(now())
+  name String 
+  description String
+  projectManager String
+  assignedTo String
+  status String
+}
