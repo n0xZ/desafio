@@ -28,14 +28,22 @@ const ProjectForm: React.FC<IProjectForm> = ({
     } = useForm<Project>({ resolver: yupResolver(ProjectSchema) });
     const onSubmit = handleSubmit((values) => {
         if (isEditAvailable) {
-            project.map((project:any) => {
+            project.map((project: any) => {
                 if (project.name === actualName) {
                     project = values;
                     toast.success('Project edited successfully!');
                 }
             });
         } else {
-            project.push(values);
+            const newProject = {
+                id: project.length + 1,
+                name: values.name,
+                description: values.description,
+                assignedTo: values.assignedTo,
+                projectManager: values.projectManager,
+                status: values.status,
+            };
+            project.push(newProject);
             toast.success('Project created successfully!');
         }
     });
@@ -48,7 +56,9 @@ const ProjectForm: React.FC<IProjectForm> = ({
                         Back
                     </a>
                 </Link>
-                <h3 className="font-bold mx-4 xl:text-center">{isEditAvailable? 'Edit Project' : 'Add Project'}</h3>
+                <h3 className="font-bold mx-4 xl:text-center">
+                    {isEditAvailable ? 'Edit Project' : 'Add Project'}
+                </h3>
             </aside>
             <form
                 onSubmit={onSubmit}
