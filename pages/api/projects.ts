@@ -5,8 +5,17 @@ export default async function getProjects(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    if (req.method !== 'GET') return res.status(405).end();
-    const projectsResponse = await prisma.project.findMany();
+    if (req.method !== 'GET' && req.method !== 'POST')
+        return res.status(405).end();
+    if (req.method === 'GET') {
+        const projectsResponse = await prisma.project.findMany();
 
-    return res.status(200).json(projectsResponse);
+        return res.status(200).json(projectsResponse);
+    } else {
+       console.log(req.headers)
+        const projectsResponse = await prisma.project.create({
+            data: req.body,
+        });
+        return res.status(200).json(projectsResponse);
+    }
 }
