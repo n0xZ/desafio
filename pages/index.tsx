@@ -1,8 +1,13 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
+
 import HomeView from '@/components/Home/HomeView';
-const Home: NextPage = () => {
+import { Project } from 'types';
+interface IProjects {
+    projects: Project[];
+}
+const Home: React.FC<IProjects> = ({ projects }) => {
+    console.log(projects);
     return (
         <div className="flex flex-row justify-center xl:items-center items-start  container mx-auto min-h-screen h-full w-full">
             <Head>
@@ -20,3 +25,15 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+export const getStaticProps: GetStaticProps = async () => {
+    const projectsResponse = await fetch(
+        'https://challengeestoes.vercel.app/api/projects'
+    );
+    const projects = await projectsResponse.json();
+    return {
+        props: {
+            projects: projects,
+        },
+        revalidate: 15,
+    };
+};
