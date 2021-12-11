@@ -1,28 +1,54 @@
 import React from 'react';
 import Link from 'next/link';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import { ProjectSchema } from 'utils/yup';
 import FormField from '../Field/FormField';
-import { Project } from 'types';
+import FormOptionField from '../Field/FormOptionField';
 import persons from 'projectManager.json';
 import assigned from 'assignedTo.json';
 import status from 'status.json';
-import FormOptionField from '../Field/FormOptionField';
-const ProjectForm = () => {
+import project from 'project.json';
+import { ProjectSchema } from 'utils/yup';
+import { Project } from 'types';
+interface IProjectForm {
+    isEditAvailable: boolean;
+    projectName: string | undefined;
+}
+const ProjectForm: React.FC<IProjectForm> = ({
+    isEditAvailable,
+    projectName,
+}) => {
+    const actualName = projectName;
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<Project>({ resolver: yupResolver(ProjectSchema) });
-    const onSubmit = handleSubmit((values) => console.log(values));
+    const onSubmit = handleSubmit((values) => {
+        if (isEditAvailable) {
+            project.map((project) => {
+                if (project.name === actualName) {
+                    project = values;
+                    toast.success('Project edited successfully!');
+                }
+            });
+        } else {
+            project.push(values);
+            toast.success('Project created successfully!');
+        }
+    });
     return (
-        <main className="flex flex-col  ">
+        <main className="flex flex-col ">
             <aside className="flex flex-row border-b-2 border-gray-200 px-2">
                 <Link href="/">
-                    <a>Back</a>
+                    <a className="font-bold flex flex-row">
+                        <AiOutlineArrowLeft className="h-6 w-6" />
+                        Back
+                    </a>
                 </Link>
-                <h3 className="font-bold mx-3 xl:text-center">Edit Project</h3>
+                <h3 className="font-bold mx-4 xl:text-center">{isEditAvailable? 'Edit Project' : 'Add Project'}</h3>
             </aside>
             <form
                 onSubmit={onSubmit}
@@ -65,10 +91,10 @@ const ProjectForm = () => {
                 />
                 <button
                     type="submit"
-                    className="px-4 py-2 rounded bg-red-600  font-roboto  text-white hover:bg-red-800 transition ease-in"
+                    className="px-3 mx-1 py-2 rounded bg-red-600  font-roboto  text-white hover:bg-red-800 transition ease-in"
                 >
                     {' '}
-                    Create Project
+                    {isEditAvailable ? 'Edit Project' : 'Create Project'}
                 </button>
             </form>
         </main>

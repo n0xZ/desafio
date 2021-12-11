@@ -1,10 +1,38 @@
 [
     {
+        "id": 1,
         "name": "E-Commerce",
         "description": "Test de prueba",
+
         "projectManager": "Cosme Fulanito",
         "assignedTo": "Gonzalo Molina",
         "status": "Active"
     },
+    {
+        "id": 2,
+        "name": "Landing Page",
+        "description": "Landing page que contendrá contenido referido a zoológicos cercanos a La Plata",
 
+        "projectManager": "Adrián Estelar",
+        "assignedTo": "Gonzalo Molina",
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "name": "SAAS",
+        "description": "Software as a Service pedido por un cliente exterior",
+
+        "projectManager": "Cosme Fulanito",
+        "assignedTo": "Marcos Test",
+        "status": "Inactive"
+    },
+    {
+        "id": 4,
+        "name": "E-Commerce",
+        "description": "Test de prueba",
+
+        "projectManager": "Cosme Fulanito",
+        "assignedTo": "Gonzalo Molina",
+        "status": "Active"
+    }
 ]
