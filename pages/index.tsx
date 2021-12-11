@@ -1,14 +1,15 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 
 import HomeView from '@/components/Home/HomeView';
 import { Project } from 'types';
+import Header from '@/components/Header/Header';
 interface IProjects {
     projects: Project[];
 }
 const Home: React.FC<IProjects> = ({ projects }) => {
     return (
-        <div className="flex flex-row justify-center xl:items-center items-start  container mx-auto min-h-screen h-full w-full">
+        <div className="min-h-screen h-full w-full">
             <Head>
                 <title>Challenge Esto Es | Home</title>
                 <meta
@@ -18,7 +19,12 @@ const Home: React.FC<IProjects> = ({ projects }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <HomeView projects={projects} />
+            <Header />
+            <div className='mb-4'>
+                <div>
+                    <HomeView projects={projects}/>
+                </div>
+            </div>
         </div>
     );
 };
