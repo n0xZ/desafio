@@ -28,7 +28,7 @@ const ProjectForm: React.FC<IProjectForm> = ({
     } = useForm<Project>({ resolver: yupResolver(ProjectSchema) });
     const onSubmit = handleSubmit((values) => {
         if (isEditAvailable) {
-            project.map((project) => {
+            project.map((project:any) => {
                 if (project.name === actualName) {
                     project = values;
                     toast.success('Project edited successfully!');

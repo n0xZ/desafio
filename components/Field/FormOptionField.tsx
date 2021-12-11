@@ -24,7 +24,7 @@ const FormOptionField: React.FC<IFormOptionField> = ({
                 className="px-3 h-11 w-full rounded-md outline-none border-2 border-gray-300 shadow-md"
                 {...register(inputName)}
             >
-                {options.map((option, index) => (
+                {options.map((option:any, index) => (
                     <option key={index} value={option.name}>
                         {option.name}
                     </option>
