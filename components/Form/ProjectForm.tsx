@@ -11,6 +11,7 @@ import assigned from 'assignedTo.json';
 import status from 'status.json';
 import { ProjectSchema } from 'utils/yup';
 import { ProjectForm } from 'types';
+import Header from '../Header/Header';
 
 interface IProjectForm {
     isEditAvailable: boolean;
@@ -49,8 +50,9 @@ const ProjectForm: React.FC<IProjectForm> = ({
         }
     });
     return (
-        <main className="flex flex-col ">
-            <aside className="flex flex-row border-b-2 border-gray-200 px-2">
+        <main className="flex flex-col min-h-screen ">
+            <Header/>
+            <aside className="flex flex-row border-b-2 border-gray-200 w-full bg-white px-2">
                 <Link href="/">
                     <a className="font-bold flex flex-row">
                         <AiOutlineArrowLeft className="h-6 w-6" />
@@ -63,7 +65,7 @@ const ProjectForm: React.FC<IProjectForm> = ({
             </aside>
             <form
                 onSubmit={onSubmit}
-                className="flex flex-col justify-start items-start my-5 px-2  w-full container mx-auto xl:w-2/4"
+                className="flex flex-col justify-start items-start xl:my-5 my-2 px-2 pb-5 w-full container mx-auto xl:h-3/5 min-h-full h-5/6 bg-white"
             >
                 <FormField
                     inputName="name"
