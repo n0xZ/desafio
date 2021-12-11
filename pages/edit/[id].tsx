@@ -28,9 +28,8 @@ export default Project;
 export const getStaticProps: GetStaticProps<any, any> = async ({
     params: { id },
 }) => {
-    const projects = await fetch(
-        'https://challengeestoes.vercel.app/api/projects'
-    );
+    const API_URL = String(process.env.API_URL);
+    const projects = await fetch(API_URL);
     const projectResponse = await projects.json();
     const project = projectResponse.find(
         (project: Project) => project.id === id
@@ -43,9 +42,8 @@ export const getStaticProps: GetStaticProps<any, any> = async ({
     };
 };
 export const getStaticPaths: GetStaticPaths = async () => {
-    const projects = await fetch(
-        'https://challengeestoes.vercel.app/api/projects'
-    );
+    const API_URL = String(process.env.API_URL);
+    const projects = await fetch(API_URL);
     const projectResponse = await projects.json();
     return {
         paths: projectResponse.map((project: Project) => ({

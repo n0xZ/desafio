@@ -25,9 +25,8 @@ const Home: React.FC<IProjects> = ({ projects }) => {
 
 export default Home;
 export const getStaticProps: GetStaticProps = async () => {
-    const projectsResponse = await fetch(
-        'https://challengeestoes.vercel.app/api/projects'
-    );
+    const API_URL = String(process.env.API_URL);
+    const projectsResponse = await fetch(API_URL);
     const projects = await projectsResponse.json();
     return {
         props: {

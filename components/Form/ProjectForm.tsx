@@ -26,20 +26,18 @@ const ProjectForm: React.FC<IProjectForm> = ({
         formState: { errors },
     } = useForm<ProjectForm>({ resolver: yupResolver(ProjectSchema) });
     const onSubmit = handleSubmit(async (values) => {
+        const API_URL = String(process.env.API_URL);
         if (isEditAvailable) {
-            const response = await fetch(
-                `https://challengeestoes.vercel.app/api/projects/${projectId}`,
-                {
-                    method: 'PUT',
-                    body: JSON.stringify(values),
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    },
-                }
-            ).then((res) => res.json());
+            const response = await fetch(`${API_URL}/${projectId}`, {
+                method: 'PUT',
+                body: JSON.stringify(values),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }).then((res) => res.json());
             toast.success(response.message);
         } else {
-            const response = await fetch('https://challengeestoes.vercel.app/api/projects', {
+            const response = await fetch(API_URL, {
                 method: 'POST',
                 body: JSON.stringify(values),
                 headers: {

@@ -14,6 +14,7 @@ const ProjectsList = ({ projects }: IProjectsList) => {
     const [Projects, setProjects] = useState(projects);
     const [SelectedProject, setSelectedProject] = useState('');
     const DeleteProject = (id: string) => {
+        const API_URL = String(process.env.API_URL);
         sweetalert
             .fire({
                 title: 'Desea borrar el projecto?',
@@ -24,7 +25,7 @@ const ProjectsList = ({ projects }: IProjectsList) => {
             .then(async (result) => {
                 if (result.isConfirmed) {
                     const deleteResponse = await fetch(
-                        `https://challengeestoes.vercel.app/api/projects/${id}`,
+                        `${API_URL}/${id}`,
                         {
                             method: 'DELETE',
                             headers: {
