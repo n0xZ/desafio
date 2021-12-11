@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import sweetalert from 'sweetalert2';
+import { RiDeleteBin7Line } from 'react-icons/ri';
+import { FiEdit } from 'react-icons/fi';
 import { GoKebabVertical } from 'react-icons/go';
 import { Project } from 'types';
 interface IProjectsList {
@@ -66,19 +68,27 @@ const ProjectsList = ({ projects }: IProjectsList) => {
                             key={project.projectManager}
                             className={
                                 toggleMenu && SelectedProject === project.name
-                                    ? ' h-full xl:w-3/12 mx-4 w-2/4 rounded-sm flex flex-col justify-start items-center  bg-gray-50'
+                                    ? ' h-full xl:w-4/12 mx-4 w-2/4 rounded-md shadow-md flex flex-col justify-center items-center  bg-gray-50'
                                     : ' hidden '
                             }
                         >
+                            <div className="text-left  w-full flex flex-row  justify-start items-center">
                             <button
                                 onClick={() => DeleteProject(project.id)}
-                                className="text-left  border-b-2 border-gray-200 w-full"
+                                className="text-left  border-b-2 border-gray-200 w-full flex flex-row justify-start items-center"
                             >
-                                Eliminar
+                                <RiDeleteBin7Line className="xl:h-6 xl:w-6  w-16"   />{' '}
+                                <p className="mx-2">Eliminar</p>
                             </button>
-                            <Link href={`/edit/${project.id}`}>
-                                <a className="text-left">Editar </a>
-                            </Link>
+                            </div>
+                            <div className="text-left  w-full flex flex-row ml-2 justify-start items-center">
+                                <Link href={`/edit/${project.id}`}>
+                                    <a className="flex flex-row justify-start items-center">
+                                        <FiEdit className="xl:h-5 xl:w-5 h-4 w-4"  />{' '}
+                                        <p className="mx-2">Editar</p>
+                                    </a>
+                                </Link>
+                            </div>
                         </div>
                         <GoKebabVertical
                             className="h-2/5"
