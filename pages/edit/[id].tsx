@@ -1,6 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import prisma from '@/prisma/seed';
+import Head from 'next/head';
 import ProjectForm from '@/components/Form/ProjectForm';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -9,7 +8,19 @@ interface IProject {
     project: Project;
 }
 const Project: React.FC<IProject> = ({ project }) => {
-    return <ProjectForm isEditAvailable={true} projectId={project.id} />;
+    return (
+        <>
+            <Head>
+                <title>Challenge Esto Es | Editar Proyecto</title>
+                <meta
+                    name="Challenge Esto Es "
+                    content="Formulario de edición de proyecto de la página Esto Es"
+                />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <ProjectForm isEditAvailable={true} projectId={project.id} />
+        </>
+    );
 };
 
 export default Project;
