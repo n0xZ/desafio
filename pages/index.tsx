@@ -7,7 +7,6 @@ interface IProjects {
     projects: Project[];
 }
 const Home: React.FC<IProjects> = ({ projects }) => {
-    console.log(projects);
     return (
         <div className="flex flex-row justify-center xl:items-center items-start  container mx-auto min-h-screen h-full w-full">
             <Head>
@@ -19,7 +18,7 @@ const Home: React.FC<IProjects> = ({ projects }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <HomeView />
+            <HomeView projects={projects}/>
         </div>
     );
 };
