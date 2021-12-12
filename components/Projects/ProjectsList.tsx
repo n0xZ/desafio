@@ -68,7 +68,7 @@ const ProjectsList = ({ projects }: IProjectsList) => {
                         <div
                             key={project.projectManager}
                             className={
-                                toggleMenu && SelectedProject === project.name
+                                toggleMenu && SelectedProject === project.id
                                     ? ' h-full xl:w-4/12 mx-4 w-2/4 rounded-md shadow-md flex flex-col justify-center items-center  bg-gray-50'
                                     : ' hidden '
                             }
@@ -93,9 +93,10 @@ const ProjectsList = ({ projects }: IProjectsList) => {
                         </div>
                         <GoKebabVertical
                             className="h-2/5"
-                            onClick={() => ToggleMenu(project.name)}
+                            onClick={() => ToggleMenu(project.id)}
                         />
                     </div>
+                    <div></div>
                 </div>
             ))}
         </>
