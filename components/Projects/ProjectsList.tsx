@@ -49,7 +49,7 @@ const ProjectsList = ({ projects }: IProjectsList) => {
         settoggleMenu((prev) => (prev = !prev));
     };
     const NextPage = () => {
-        if (ItemsPerPage < Projects.length) setItemsPerPage((prev) => prev + 5);
+        if (ItemsPerPage <= Projects.length) setItemsPerPage((prev) => prev + 5);
     };
     const PreviousPage = () => {
         if (ItemsPerPage > 0) setItemsPerPage((prev) => prev - 5);
