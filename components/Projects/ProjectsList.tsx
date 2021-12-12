@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
+import React, { useState } from 'react';
+
 import Link from 'next/link';
 import sweetalert from 'sweetalert2';
 import { RiDeleteBin7Line } from 'react-icons/ri';
