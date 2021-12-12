@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
 import sweetalert from 'sweetalert2';
 import { RiDeleteBin7Line } from 'react-icons/ri';
@@ -12,7 +13,12 @@ interface IProjectsList {
 const ProjectsList = ({ projects }: IProjectsList) => {
     const [toggleMenu, settoggleMenu] = useState(false);
     const [Projects, setProjects] = useState(projects);
+    const [ItemsPerPage, setItemsPerPage] = useState(0);
     const [SelectedProject, setSelectedProject] = useState('');
+
+    const SlicedProjects = () => {
+        return Projects.slice(ItemsPerPage, ItemsPerPage + 5);
+    };
     const DeleteProject = (id: string) => {
         const API_URL = String(process.env.API_URL);
         sweetalert
@@ -24,16 +30,12 @@ const ProjectsList = ({ projects }: IProjectsList) => {
             })
             .then(async (result) => {
                 if (result.isConfirmed) {
-                    const deleteResponse = await fetch(
-                        `${API_URL}/${id}`,
-                        {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-type':
-                                    'application/json; charset=UTF-8',
-                            },
-                        }
-                    ).then((res) => res.json());
+                    const deleteResponse = await fetch(`${API_URL}/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                        },
+                    }).then((res) => res.json());
                     const projectsFiltered = Projects.filter(
                         (project) => project.id !== id
                     );
@@ -46,12 +48,19 @@ const ProjectsList = ({ projects }: IProjectsList) => {
         setSelectedProject(name);
         settoggleMenu((prev) => (prev = !prev));
     };
+    const NextPage = () => {
+        if (ItemsPerPage < Projects.length) setItemsPerPage((prev) => prev + 5);
+    };
+    const PreviousPage = () => {
+        if (ItemsPerPage > 0) setItemsPerPage((prev) => prev - 5);
+    };
+
     return (
-        <>
-            {Projects.map((project) => (
+        <div className="flex flex-col justify-between min-h-screen w-full">
+            {SlicedProjects().map((project) => (
                 <div
                     key={project.id}
-                    className="flex flex-row justify-between items-center  h-2/6 w-full p-3 bg-white border-gray-400 border-b-2  "
+                    className="flex flex-row justify-between items-center  max-h-2/6 w-full p-3 bg-white border-gray-400 border-b-2  "
                 >
                     <aside className="h-full w-full flex-col justify-start items-start ">
                         <h3 className="font-roboto font-bold">
@@ -74,18 +83,18 @@ const ProjectsList = ({ projects }: IProjectsList) => {
                             }
                         >
                             <div className="text-left  w-full flex flex-row  justify-start items-center">
-                            <button
-                                onClick={() => DeleteProject(project.id)}
-                                className="text-left  border-b-2 border-gray-200 w-full flex flex-row justify-start items-center"
-                            >
-                                <RiDeleteBin7Line className="xl:h-6 xl:w-6  w-16"   />{' '}
-                                <p className="mx-2">Eliminar</p>
-                            </button>
+                                <button
+                                    onClick={() => DeleteProject(project.id)}
+                                    className="text-left  border-b-2 border-gray-200 w-full flex flex-row justify-start items-center"
+                                >
+                                    <RiDeleteBin7Line className="xl:h-6 xl:w-6  w-16" />{' '}
+                                    <p className="mx-2">Eliminar</p>
+                                </button>
                             </div>
                             <div className="text-left  w-full flex flex-row ml-2 justify-start items-center">
                                 <Link href={`/edit/${project.id}`}>
                                     <a className="flex flex-row justify-start items-center">
-                                        <FiEdit className="xl:h-5 xl:w-5 h-4 w-4"  />{' '}
+                                        <FiEdit className="xl:h-5 xl:w-5 h-4 w-4" />{' '}
                                         <p className="mx-2">Editar</p>
                                     </a>
                                 </Link>
@@ -96,10 +105,20 @@ const ProjectsList = ({ projects }: IProjectsList) => {
                             onClick={() => ToggleMenu(project.id)}
                         />
                     </div>
-                    <div></div>
                 </div>
             ))}
-        </>
+            <div className="flex flex-col bg-red justify-center items-center w-full h-full mt-5">
+                <div className="flex flex-row items-center ">
+                    <button className="px-3 py-2 mx-6 rounded bg-red-600  font-roboto  text-white hover:bg-red-800 transition ease-in " onClick={PreviousPage}>
+                        Previous
+                    </button>
+
+                    <button className="px-6 py-2 mx-2 rounded bg-blue-600  font-roboto  text-white hover:bg-blue-800 transition ease-in " onClick={NextPage}>
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 };
 
