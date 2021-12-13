@@ -11,7 +11,7 @@ module.exports = {
                 headers: [
                     {
                         key: 'Access-Control-Allow-Headers',
-                        value: ' X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization',
+                        value: 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization',
                     },
                     {
                         key: 'Access-Control-Allow-Origin',
@@ -32,7 +32,7 @@ module.exports = {
                 headers: [
                     {
                         key: 'Access-Control-Allow-Headers',
-                        value: ' X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization',
+                        value: 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization',
                     },
                     {
                         key: 'Access-Control-Allow-Origin',

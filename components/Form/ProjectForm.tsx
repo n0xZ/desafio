@@ -23,6 +23,7 @@ const ProjectForm: React.FC<IProjectForm> = ({
 }) => {
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm<ProjectForm>({ resolver: yupResolver(ProjectSchema) });
@@ -37,6 +38,7 @@ const ProjectForm: React.FC<IProjectForm> = ({
                 },
             }).then((res) => res.json());
             toast.success(response.message);
+            reset();
         } else {
             const response = await fetch(API_URL, {
                 method: 'POST',
@@ -47,11 +49,12 @@ const ProjectForm: React.FC<IProjectForm> = ({
             }).then((res) => res.json());
 
             toast.success(response.message);
+            reset();
         }
     });
     return (
         <main className="flex flex-col min-h-screen ">
-            <Header/>
+            <Header />
             <aside className="flex flex-row border-b-2 border-gray-200 w-full bg-white px-2">
                 <Link href="/">
                     <a className="font-bold flex flex-row">
