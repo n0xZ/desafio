@@ -1,4 +1,4 @@
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps, GetStaticProps } from 'next';
 import Head from 'next/head';
 
 import HomeView from '@/components/Home/HomeView';
@@ -20,9 +20,9 @@ const Home: React.FC<IProjects> = ({ projects }) => {
             </Head>
 
             <Header />
-            <div className='mb-4'>
+            <div className="mb-4">
                 <div>
-                    <HomeView projects={projects}/>
+                    <HomeView projects={projects} />
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@ const Home: React.FC<IProjects> = ({ projects }) => {
 };
 
 export default Home;
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const API_URL = String(process.env.API_URL);
     const projectsResponse = await fetch(API_URL);
     const projects = await projectsResponse.json();
@@ -38,6 +38,5 @@ export const getStaticProps: GetStaticProps = async () => {
         props: {
             projects: projects,
         },
-        revalidate: 3,
     };
 };
