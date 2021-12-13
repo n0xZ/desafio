@@ -30,16 +30,14 @@ const Home: React.FC<IProjects> = ({ projects }) => {
 };
 
 export default Home;
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
     const API_URL = String(process.env.API_URL);
     const projectsResponse = await fetch(API_URL);
     const projects = await projectsResponse.json();
-    context.res.setHeader('Content-Type', 'application/json');
-    context.res.setHeader('Access-Control-Allow-Origin', '*');
-
     return {
         props: {
             projects: projects,
         },
+        revalidate:1
     };
 };

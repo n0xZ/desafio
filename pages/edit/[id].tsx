@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps<any, any> = async ({
         props: {
             project,
         },
-        revalidate: 3,
+        revalidate: 1,
     };
 };
 export const getStaticPaths: GetStaticPaths = async () => {
