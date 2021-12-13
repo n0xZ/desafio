@@ -13,6 +13,10 @@ module.exports = {
                         key: 'Access-Control-Allow-Origin',
                         value: '*',
                     },
+                    {
+                        key: 'Access-Control-Allow-Methods',
+                        value: 'GET,POST',
+                    },
                 ],
             },
             {
@@ -21,6 +25,10 @@ module.exports = {
                     {
                         key: 'Access-Control-Allow-Origin',
                         value: '*',
+                    },
+                     {
+                        key: 'Access-Control-Allow-Methods',
+                        value: 'PUT,DELETE',
                     },
                 ],
             },
