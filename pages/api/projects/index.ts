@@ -18,6 +18,8 @@ export default async function handleProjects(
                 return res
                     .status(500)
                     .json({ message: 'Campos no introducidos' });
+                    
+                  
             const addProjectResponse = await prisma.project.create({
                 data: {
                     name,
@@ -27,7 +29,7 @@ export default async function handleProjects(
                     status,
                 },
             });
-
+            res.setHeader('Access-Control-Allow-Origin','*')
             return res.status(200).json({
                 message: 'Project created successfully',
                 response: addProjectResponse,

@@ -11,6 +11,7 @@ export default async function handleProject(
         const deleteResponse = await prisma.project.delete({
             where: { id: id },
         });
+        res.setHeader('Access-Control-Allow-Origin','*')
         res.status(200).json({
             message: 'Project removed successfully',
             response: deleteResponse,
@@ -24,6 +25,7 @@ export default async function handleProject(
             data: { name, description, projectManager, assignedTo, status },
             where: { id: id },
         });
+        res.setHeader('Access-Control-Allow-Origin','*')
         res.status(200).json({
             message: 'Project updated successfully',
             response: updateResponse,
