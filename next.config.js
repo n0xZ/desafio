@@ -17,6 +17,10 @@ module.exports = {
                         key: 'Access-Control-Allow-Methods',
                         value: 'GET,POST',
                     },
+                    {
+                        key: 'Content-Type',
+                        value: 'application/json',
+                    },
                 ],
             },
             {
@@ -29,6 +33,11 @@ module.exports = {
                      {
                         key: 'Access-Control-Allow-Methods',
                         value: 'PUT,DELETE',
+                    },
+
+                    {
+                        key: 'Content-Type',
+                        value: 'application/json',
                     },
                 ],
             },
