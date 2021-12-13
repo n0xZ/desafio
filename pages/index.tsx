@@ -30,7 +30,7 @@ const Home: React.FC<IProjects> = ({ projects }) => {
 };
 
 export default Home;
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     const API_URL = String(process.env.API_URL);
     const projectsResponse = await fetch(API_URL);
     const projects = await projectsResponse.json();
