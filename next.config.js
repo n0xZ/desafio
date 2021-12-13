@@ -10,6 +10,10 @@ module.exports = {
                 source: '/api/projects',
                 headers: [
                     {
+                        key: 'Access-Control-Allow-Headers',
+                        value: ' X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization',
+                    },
+                    {
                         key: 'Access-Control-Allow-Origin',
                         value: '*',
                     },
@@ -27,10 +31,14 @@ module.exports = {
                 source: '/api/projects/:id',
                 headers: [
                     {
+                        key: 'Access-Control-Allow-Headers',
+                        value: ' X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization',
+                    },
+                    {
                         key: 'Access-Control-Allow-Origin',
                         value: '*',
                     },
-                     {
+                    {
                         key: 'Access-Control-Allow-Methods',
                         value: 'PUT,DELETE',
                     },
