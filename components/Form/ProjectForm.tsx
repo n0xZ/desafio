@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import FormField from '../Field/FormField';
 import FormOptionField from '../Field/FormOptionField';
